@@ -1,0 +1,22 @@
+<h1>나의 게시글 페이지</h1>
+<a href="/new" style="text-decoration:none;">새 글 쓰기</a><br><br>
+
+<%@posts.each do |post|%>
+   <h2> <%=post.title%><br></h2>
+    <%=post.content%><br>
+    <a href="/destroy/<%=post.id%>" style="text-decoration:none;">[삭제]</a>
+    <a href="/edit/<%=post.id%>" style="text-decoration:none;">[수정]</a><br><br>
+    
+    
+    <form action="/posts/<%= post.id %>/comments/create" method="POST">
+        <input type="text" name="content">
+        <input type="submit" value="댓글 작성"><br>
+    </form><br>
+    <h2>댓글입니다<br>---------------</h2>
+    <% post.comments.each do |comment| %>
+    <%=comment.content%>
+    <a href="/posts/<%=post.id%>/comments/<%=comment.id%>">[삭제]</a><br>
+    <% end %>
+    
+    <h2>---------------<br></h2>
+<%end%>
