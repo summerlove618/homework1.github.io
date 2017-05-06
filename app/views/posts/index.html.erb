@@ -1,22 +1,22 @@
 <h1>나의 게시글 페이지</h1>
-<a href="/new" style="text-decoration:none;">새 글 쓰기</a><br><br>
+<%= link_to '새 글 쓰기', "/new" %><br><br>
 
 <%@posts.each do |post|%>
-   <h2> <%=post.title%><br></h2>
+    <h2><%=post.title%></h2>
     <%=post.content%><br>
-    <a href="/destroy/<%=post.id%>" style="text-decoration:none;">[삭제]</a>
-    <a href="/edit/<%=post.id%>" style="text-decoration:none;">[수정]</a><br><br>
     
+    <%= link_to '[삭제]', {controller: "posts", action: "destroy", post_id: @posts.ids} %>
+    <%= link_to '[수정]', {controller: "posts", action: "edit", post_id: @posts.ids} %>
     
-    <form action="/posts/<%= post.id %>/comments/create" method="POST">
-        <input type="text" name="content">
-        <input type="submit" value="댓글 작성"><br>
-    </form><br>
-    <h2>댓글입니다<br>---------------</h2>
+    <%= form_tag({controller: "comments", action: "create", post_id: @posts.ids}, method:"POST") do %>
+        <%= text_field_tag (:content)%>
+        <%=submit_tag "댓글 작성"%><br>
+    <%end%>  
+    
+    <br>
+    
     <% post.comments.each do |comment| %>
-    <%=comment.content%>
-    <a href="/posts/<%=post.id%>/comments/<%=comment.id%>">[삭제]</a><br>
+      <h3>댓글임: <%=comment.content%></h3>
+      <%=link_to '[삭제]',{controller: "comments", action: "destroy", post_id: post.ids, comment_id: post.comments.ids} %><br>
     <% end %>
-    
-    <h2>---------------<br></h2>
-<%end%>
+<% end %>   
