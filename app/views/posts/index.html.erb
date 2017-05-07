@@ -5,10 +5,10 @@
     <h2><%=post.title%></h2>
     <%=post.content%><br>
     
-    <%= link_to '[삭제]', {controller: "posts", action: "destroy", post_id: @posts.ids} %>
-    <%= link_to '[수정]', {controller: "posts", action: "edit", post_id: @posts.ids} %>
+    <%= link_to '[삭제]', {controller: "posts", action: "destroy", post_id: post.id} %>
+    <%= link_to '[수정]', {controller: "posts", action: "edit", post_id: post.id} %>
     
-    <%= form_tag({controller: "comments", action: "create", post_id: @posts.ids}, method:"POST") do %>
+    <%= form_tag({controller: "comments", action: "create", post_id: post.id}, method:"POST") do %>
         <%= text_field_tag (:content)%>
         <%=submit_tag "댓글 작성"%><br>
     <%end%>  
