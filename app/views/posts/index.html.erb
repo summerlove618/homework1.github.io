@@ -17,6 +17,6 @@
     
     <% post.comments.each do |comment| %>
       <h3>댓글임: <%=comment.content%></h3>
-      <%=link_to '[삭제]',{controller: "comments", action: "destroy", post_id: post.ids, comment_id: post.comments.ids} %><br>
+      <%=link_to '[삭제]',{controller: "comments", action: "destroy", post_id: post.id, comment_id: comment.id} %><br>
     <% end %>
 <% end %>   
